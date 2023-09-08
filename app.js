@@ -9,6 +9,10 @@ app.get('/society',(req,res)=>{
     res.render('home')
 })
 
+app.get('/society/login',(req,res)=>{
+    res.render('login_page')
+})
+
 app.listen(3000,()=>{
     console.log('Servering on the port 3000')
 })
