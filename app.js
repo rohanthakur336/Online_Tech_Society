@@ -14,7 +14,7 @@ app.get('/society/login',(req,res)=>{
 })
 
 app.get('/society/gallery',(req,res)=>{
-    res.send('gallery')
+    res.render('gallery')
 })
 
 app.get('/society/events',(req,res)=>{
