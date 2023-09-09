@@ -26,10 +26,8 @@ app.get('/society/community',(req,res)=>{
 })
 
 app.get('/society/joinus',(req,res)=>{
-    res.send('join us')
+    res.render('joinUs')
 })
-
-
 
 app.listen(3000,()=>{
     console.log('Servering on the port 3000')
