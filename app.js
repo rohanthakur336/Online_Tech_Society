@@ -1,11 +1,11 @@
 const express=require('express');
 const app=express();
 const mongoose=require('mongoose');
-// const ejsMate=require('ejs-mate');
+const ejsMate=require('ejs-mate');
 const path=require('path');
-// const Gallery=require('./models/gallery')
+const Gallery=require('./models/gallery')
 const methodOverride=require('method-override');
-// const {GallerySchema}=require('./schemas.js');
+const {GallerySchema}=require('./schemas.js');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
     useNewUrlParser: true,
@@ -24,10 +24,11 @@ db.once("open", () => {
 app.use(express.urlencoded())
 app.use(methodOverride('_method'))
 
+app.engine('ejs', ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
-app.get('/society',(req,res)=>{
+app.get('/society',async(req,res)=>{
     res.render('home')
 })
 
@@ -35,8 +36,9 @@ app.get('/society/login',(req,res)=>{
     res.render('login_page')
 })
 
-app.get('/society/gallery',(req,res)=>{
-    res.render('gallery')
+app.get('/society/gallery',async (req,res)=>{
+    const gallerys=await Gallery.find({});
+    res.render('gallery',{gallerys})
 })
 
 app.get('/society/events',(req,res)=>{

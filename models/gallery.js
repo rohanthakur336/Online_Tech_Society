@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 
 const GallerySchema=new Schema({
     image: String,
-    date:Date,
+    // date:Date,
     description:String,
 });
 
