@@ -22,12 +22,11 @@
             </ul>
          </div>
          <div class="portfolio-item row">
-            <% for (let gallery of gallerys){%>
+            <% for (let event of events){%>
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm">
                <!-- <a href="https://image.freepik.com/free-photo/stylish-young-woman-with-bags-taking-selfie_23-2147962203.jpg" class="fancylight popup-btn" data-fancybox-group="light"> -->
-               <img class="img-fluid" src="<%=gallery.image%>" alt="">
+               <img class="img-fluid" src="<%=event.img%>" alt="">
                </a>
-               <p><%=gallery.description%></p>
             </div>
             <% }%>
          </div>

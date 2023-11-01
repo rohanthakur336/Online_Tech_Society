@@ -3,9 +3,12 @@ const app=express();
 const mongoose=require('mongoose');
 const ejsMate=require('ejs-mate');
 const path=require('path');
-const Gallery=require('./models/gallery')
+const Gallery=require('./models/gallery');
 const methodOverride=require('method-override');
-const {GallerySchema}=require('./schemas.js');
+const {GallerySchema}=require('./schemas/galleryschema.js');
+const {eventSchema}=require('./schemas/eventschema');
+const event = require('./models/event');
+const member = require('./models/member');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
     useNewUrlParser: true,
@@ -41,8 +44,9 @@ app.get('/society/gallery',async (req,res)=>{
     res.render('gallery',{gallerys})
 })
 
-app.get('/society/events',(req,res)=>{
-    res.send('events')
+app.get('/society/events',async (req,res)=>{
+    const events=await event.find({});
+    res.render('event',{events});
 })
 
 app.get('/society/community',(req,res)=>{
@@ -53,8 +57,9 @@ app.get('/society/joinus',(req,res)=>{
     res.render('joinUs')
 })
 
-app.get('/society/members',(req,res)=>{
-    res.render('members')
+app.get('/society/members',async(req,res)=>{
+    const members=await member.find({});
+    res.render('members',{members});
 })
 
 app.listen(3000,()=>{
