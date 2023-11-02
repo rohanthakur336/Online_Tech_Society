@@ -15,6 +15,7 @@ function fetchData(date) {
         });
 }
 
+
 // Add event listeners to buttons
 document.getElementById('fetchDataButton1').addEventListener('click', () => {
     fetchData('date1');
