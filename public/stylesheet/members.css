@@ -1,0 +1,9 @@
+body {
+background-color: white;
+}
+
+.banner {
+background-color: rgba(0, 18, 44, 0.82);
+background: -webkit-linear-gradient(to right, rgba(0, 18, 44, 0.82), rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
+background: linear-gradient(to right, rgba(0, 18, 44, 0.82),rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
+}
