@@ -11,24 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lobster&family=Montserrat:wght@800&display=swap" rel="stylesheet">
 </head>
 <body bg-dark>
-    <nav class="navbar navbar-expand-md">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="./home.html"><img src="/images/logo.png" alt="society logo" width="50px" height="50px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="/society/events">Events</a>
-        <a class="nav-link" href="/society/gallery">Gallery</a>
-        <a class="nav-link" href="/society/members">Members</a>
-        <a class="nav-link" href="/society/login"><strong>Log In</strong></a>
-      </div>
-    </div>
-  </div>
-</div>
-</nav>
+<%- include("partials/navbar") %>
 <div class="div1">
 <div class="container col-xxl-8 px-4 py-5">
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5 tc">
@@ -41,18 +24,18 @@
   </div>
 
 </div>
-<div>
+<div class="container">
   <div class="row mt-5">
     <div class="col-lg-6"><img src="/images/pc_girl.png" alt="pc girl" width="103%"></div>
     <div class="col-lg-6"><p><b>Look for all your answers at our community page</b></p></div>
   </div>
-  <div></div>
-  <div class="row mt-sm-5 mt-lg-0">
+  <div class="row mt-5">
     <div class="col-lg-6"><p><b>The fastest growing
       society at Thapar</b></p></div>
     <div class="col-lg-6"><img src="/images/rocket_boy.png" alt="rocket boy" width="103%"></div>
   </div>
 </div>
+
   <div id="carouselExampleCaptions" class="carousel slide">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -128,17 +111,6 @@
 .tc{
   color: white;
   font-family: 'Montserrat', sans-serif;
-}
-.navbar-brand{
-  color:white;
-}
-.navbar-nav a{
-    color: white; /* Set the desired text color (red in this example) */
-    /* You can use any valid CSS color value or color code here */
-}
-nav
-{
-    background-color: rgba(0, 18, 44, 0.82);
 }
 
 .div1
