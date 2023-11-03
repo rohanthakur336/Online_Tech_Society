@@ -34,7 +34,6 @@ const seedDB = async () => {
             end_date:getRandomDate(sd,ed),
             description:"random description here",
             venue:"random place",
-            imageType: 'jpeg',
         })
         const imageBuffer = fs.readFileSync('public/images/ee.jpeg');
         even.img= imageBuffer;

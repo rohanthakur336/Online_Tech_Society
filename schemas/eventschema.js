@@ -5,7 +5,6 @@ module.exports.eventschema = Joi.object({
         start_date: Joi.date().required(),
         end_date: Joi.date().required(),
         img: Joi.binary().required(),
-        img_type: Joi.string().required(),
         description: Joi.string().required(),
         venue: Joi.string().required()
     }).required()
