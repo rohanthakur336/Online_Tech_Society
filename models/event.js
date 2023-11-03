@@ -2,8 +2,10 @@ const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
 const eventschema=new Schema({
-    date: Date,
-    img: String,
+    start_date: Date,
+    end_date:Date,
+    img: Buffer,
+    img_type:String,
     description: String,
     venue: String
 });

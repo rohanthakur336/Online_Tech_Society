@@ -25,9 +25,11 @@
          <div class="portfolio-item row">
             <% for (let event of events){%>
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm">
-               <!-- <a href="https://image.freepik.com/free-photo/stylish-young-woman-with-bags-taking-selfie_23-2147962203.jpg" class="fancylight popup-btn" data-fancybox-group="light"> -->
-               <img class="img-fluid" src="<%=event.img%>" alt="">
-               </a>
+               <img class="img-fluid" src="data:image/jpeg;base64,<%=event.img.toString('base64')%>" alt="">
+               <p><%=event.venue%></p>
+               
+               <p>event.start_date</p>
+               <p><%=event.description%></p>
             </div>
             <% }%>
          </div>
