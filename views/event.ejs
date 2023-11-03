@@ -27,8 +27,8 @@
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm">
                <img class="img-fluid" src="data:image/jpeg;base64,<%=event.img.toString('base64')%>" alt="">
                <p><%=event.venue%></p>
-               
-               <p>event.start_date</p>
+               <p><%=event.start_date.getDate()%>-<%=event.start_date.getMonth()%>-<%=event.start_date.getFullYear()%></p>
+               <p><%=event.end_date.getDate()%>-<%=event.end_date.getMonth()%>-<%=event.end_date.getFullYear()%></p>
                <p><%=event.description%></p>
             </div>
             <% }%>
