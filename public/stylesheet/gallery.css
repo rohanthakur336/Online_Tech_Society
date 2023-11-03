@@ -28,9 +28,9 @@ body{
 	float:left;
 	margin-bottom:10px;
 }
-
+/* rgba(62, 90, 129, 0.82) */
 .grey-bg {
-	background-color: rgba(164, 190, 226, 0.82);
+	background-color: rgba(65, 89, 125, 0.82);
 	color: white;
 	padding: 10px;
 	max-width: 300px; 
@@ -49,5 +49,5 @@ body{
 }
 .max-img-size:hover img {
 	transform: scale(1.1);
-	transition: transform 0.5s;
+	transition: transform 1s;
 }

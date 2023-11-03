@@ -80,6 +80,6 @@ app.get('/society/members',async(req,res)=>{
     res.render('members',{members});
 })
 
-app.listen(5000,()=>{
-    console.log('Servering on the port 5000')
+app.listen(3000,()=>{
+    console.log('Servering on the port 3000')
 })
