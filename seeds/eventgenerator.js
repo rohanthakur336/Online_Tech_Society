@@ -1,3 +1,4 @@
+const fs = require('fs');
 const mongoose = require('mongoose');
 const event= require('../models/event');
 
@@ -14,15 +15,28 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+const sd = new Date('2020-01-01');
+const ed = new Date('2023-12-31');
+
+function getRandomDate(sd, ed) {
+  const randomTime = sd.getTime() + Math.random() * (ed.getTime() - sd.getTime());
+
+  const randomDate = new Date(randomTime);
+
+  return randomDate;
+}
+
 const seedDB = async () => {
     await event.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 5; i++) {
         const even = new event({
-            date:"2023-12-11",
-            img: `https://source.unsplash.com/random`,
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam magni voluptate odio ab, ducimus repellat deserunt ipsa. Atque eligendi cum voluptas iste quo provident similique porro aliquid dicta, impedit ipsam Aperiam delectus tempora laboriosam ex maiores deleniti id consectetur porro eius unde iste reprehenderit quis, enim suscipit distinctio quod rem, veniam, illo adipisci perferendis. Inventore laudantium vero ad aperiam consequatur.",
-            venue:"lorem ipsum"
+            start_date:getRandomDate(sd,ed),
+            end_date:getRandomDate(sd,ed),
+            description:"random description here",
+            venue:"random place",
         })
+        const imageBuffer = fs.readFileSync('public/images/ee.jpeg');
+        even.img= imageBuffer;
         await even.save();
     }
 }
@@ -30,3 +44,30 @@ const seedDB = async () => {
 seedDB().then(() => {
     mongoose.connection.close();
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

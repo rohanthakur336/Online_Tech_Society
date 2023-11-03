@@ -1,5 +1,7 @@
 const express=require('express');
+const multer = require('multer');
 const app=express();
+const fs = require('fs');
 const mongoose=require('mongoose');
 const ejsMate=require('ejs-mate');
 const path=require('path');
@@ -32,6 +34,10 @@ app.engine('ejs', ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+
 app.get('/society',async(req,res)=>{
     res.render('home')
 })
@@ -47,7 +53,18 @@ app.get('/society/gallery',async (req,res)=>{
 
 app.get('/society/events',async (req,res)=>{
     const events=await event.find({});
-    res.render('event',{events});
+    res.render('event/event',{events});
+})
+
+app.get('/society/events/new',(req,res)=>{
+    res.render('event/new');
+})
+
+app.post('/society/events',upload.single('event[img]'),async(req,res)=>{
+    const even = new event(req.body.event);
+    even.img=req.file.buffer
+    await even.save();
+    res.redirect('/society/events');
 })
 
 app.get('/society/community',(req,res)=>{
@@ -63,6 +80,6 @@ app.get('/society/members',async(req,res)=>{
     res.render('members',{members});
 })
 
-app.listen(3000,()=>{
-    console.log('Servering on the port 3000')
+app.listen(5000,()=>{
+    console.log('Servering on the port 5000')
 })
