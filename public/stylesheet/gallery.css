@@ -2,6 +2,19 @@ body{
 	margin:0;
 	padding:0;
 }
+.container {
+	min-height: 100vh; /* Ensure the container takes up at least the full viewport height */
+	display: flex;
+	flex-direction: column;
+  }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    color: #F11A7B; /* Replace with your desired text color */
+    text-decoration: none;
+    border-radius: 5px;
+}
 .banner {
     background-color: rgba(0, 18, 44, 0.82);
     background: -webkit-linear-gradient(to right, rgba(0, 18, 44, 0.82), rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
@@ -34,7 +47,7 @@ body{
 	color: white;
 	padding: 10px;
 	max-width: 300px; 
-	max-height: 50px;
+	max-height: 60px;
 	overflow: hidden;
 	transition: max-height 0.9s;
 }
