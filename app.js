@@ -49,7 +49,24 @@ app.get('/society/login',(req,res)=>{
 
 app.get('/society/gallery',async (req,res)=>{
     const gallerys=await Gallery.find({});
-    res.render('gallery',{gallerys})
+    res.render('gallery/gallery',{gallerys})
+})
+
+app.get('/society/gallery/new',(req,res)=>{
+    res.render('gallery/new');
+})
+
+app.post('/society/gallery',upload.single('gallery[image]'),async(req,res)=>{
+    const gal = new Gallery(req.body.gallery);
+    gal.image=req.file.buffer
+    await gal.save();
+    res.redirect('/society/gallery');
+})
+
+app.delete('/society/gallery/:id', async(req,res)=>{
+    const {id}= req.params
+    await Gallery.findByIdAndDelete(id,{...req.body.Gallery})
+    res.redirect(`/society/gallery`)
 })
 
 app.get('/society/events',async (req,res)=>{
@@ -68,16 +85,16 @@ app.post('/society/events',upload.single('event[img]'),async(req,res)=>{
     res.redirect('/society/events');
 })
 
-app.delete('/society/:id', async(req,res)=>{
+app.delete('/society/events/:id', async(req,res)=>{
     const {id}= req.params
     await event.findByIdAndDelete(id,{...req.body.event})
     res.redirect(`/society/events`)
 })
 
-app.get('/society/events/:id/edit',async(req,res)=>{
-    const even=await event.findById(req.params.id)
-    res.render('event/update',{even});
-})
+// app.get('/society/events/:id/edit',async(req,res)=>{
+//     const even=await event.findById(req.params.id)
+//     res.render('event/update',{even});
+// })
 
 app.get('/society/community',(req,res)=>{
     res.send('community')
@@ -89,7 +106,24 @@ app.get('/society/joinus',(req,res)=>{
 
 app.get('/society/members',async(req,res)=>{
     const members=await member.find({});
-    res.render('members',{members});
+    res.render('member/member',{members});
+})
+
+app.get('/society/members/new',(req,res)=>{
+    res.render('member/new');
+})
+
+app.post('/society/members',upload.single('member[img]'),async(req,res)=>{
+    const mem = new member(req.body.member);
+    mem.img=req.file.buffer
+    await mem.save();
+    res.redirect('/society/members');
+})
+
+app.delete('/society/members/:id', async(req,res)=>{
+    const {id}= req.params
+    await member.findByIdAndDelete(id,{...req.body.member})
+    res.redirect(`/society/members`)
 })
 
 app.listen(3000,()=>{

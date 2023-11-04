@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const Schema = mongoose.Schema;
 
 const memberschema=new Schema({
-    img: String,
+    img: Buffer,
     name:String,
     designation:String,
     description: String
