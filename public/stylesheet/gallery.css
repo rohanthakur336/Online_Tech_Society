@@ -3,10 +3,11 @@ body{
 	padding:0;
 }
 .banner {
-    background: #a770ef;
-    background: -webkit-linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
-    background: linear-gradient(to right, #a770ef, #cf8bf3, #fdb99b);
+    background-color: rgba(0, 18, 44, 0.82);
+    background: -webkit-linear-gradient(to right, rgba(0, 18, 44, 0.82), rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
+    background: linear-gradient(to right, rgba(0, 18, 44, 0.82),rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
     }
+    
 .portfolio-menu{
 	text-align:center;
 }
@@ -26,4 +27,27 @@ body{
 	/*width:303px;*/
 	float:left;
 	margin-bottom:10px;
+}
+/* rgba(62, 90, 129, 0.82) */
+.grey-bg {
+	background-color: rgba(65, 89, 125, 0.82);
+	color: white;
+	padding: 10px;
+	max-width: 300px; 
+	max-height: 50px;
+	overflow: hidden;
+	transition: max-height 0.9s;
+}
+ .grey-bg:hover p {
+	transform: scale(1.03);
+	transition: transform 0.5s;
+} 
+.max-img-size{
+	max-width: 300px; 
+	max-height: 300px;
+	overflow: hidden;
+}
+.max-img-size:hover img {
+	transform: scale(1.1);
+	transition: transform 1s;
 }
