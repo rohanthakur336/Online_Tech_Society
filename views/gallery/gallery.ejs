@@ -34,10 +34,9 @@
                <div class="max-img-size rounded-top "><img class="img" src="data:image/jpeg;base64,<%=gallery.image.toString('base64')%>" alt="Image" height="200 px" width="300px"></div>
                <div class="grey-bg rounded-bottom " id="myContent" style="text-align: center;font-family: 'Edu TAS Beginner', cursive;"><p style="padding-bottom: 0;margin-bottom: 0;"><%=gallery.description%></p>
                   <div style="text-align:center;"><form class="" action="/society/gallery/<%=gallery._id%>?_method=DELETE" method="POST">
-                     <button class="btn" style="font-family:sans-serif;border-color: #F11A7B;color:#F11A7B;background-color: white;width: 20%; height: 100%; padding: 0px 0px;border-bottom-left-radius: 0%;border-bottom-right-radius: 0%;">Delete</button>
+                     <button class="btn" style="font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%; padding: 0px 0px;border-bottom-left-radius: 0%;border-bottom-right-radius: 0%;">Delete</button>
                  </form></div>
                </div>
-                           
             </div>
             <% }%>
          </div>
