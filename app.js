@@ -34,6 +34,7 @@ app.engine('ejs', ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -65,6 +66,17 @@ app.post('/society/events',upload.single('event[img]'),async(req,res)=>{
     even.img=req.file.buffer
     await even.save();
     res.redirect('/society/events');
+})
+
+app.delete('/society/:id', async(req,res)=>{
+    const {id}= req.params
+    await event.findByIdAndDelete(id,{...req.body.event})
+    res.redirect(`/society/events`)
+})
+
+app.get('/society/events/:id/edit',async(req,res)=>{
+    const even=await event.findById(req.params.id)
+    res.render('event/update',{even});
 })
 
 app.get('/society/community',(req,res)=>{
