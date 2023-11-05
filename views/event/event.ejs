@@ -9,21 +9,22 @@
 </head>
 <body>
    <%- include("../partials/navbar") %>
-
    <div class="container">
       <div class="row">
          <div class="col-lg-12 text-center my-2">
          </div>
       </div>
-      <div class="portfolio-menu mt-2 mb-4">
+      <div class="portfolio-menu mt-2 mb-4 p-3 rounded banner">
          <ul>
-            <li class="btn btn-outline-dark active" id="fetchDataButton1" data-filter="*">All</li>
-            <li class="btn btn-outline-dark" id="fetchDataButton2" data-filter=".gts">Girls T-shirt</li>
-            <li class="btn btn-outline-dark" id="fetchDataButton3" data-filter=".lap">Laptops</li>
-            <li class="btn btn-outline-dark text" data-filter=".selfie">selfie</li>
+            <li class="btn btn-outline-light active" id="fetchDataButton1" data-filter="*">All</li>
+            <li class="btn btn-outline-light" id="fetchDataButton2" data-filter=".gts">Past Events</li>
+            <li class="btn btn-outline-light" id="fetchDataButton3" data-filter=".lap">Current Events</li>
+            <li class="btn btn-outline-light text" data-filter=".selfie">Upcoming Events</li>
          </ul>
+         <div style="text-align: right;"><a href="/society/events/new"  class="button">Add Event</a></div>
       </div>
-      <a href="/society/events/new">Add Event</a>
+      
+      
          <div class="portfolio-item row">
             <% for (let event of events){%>
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm">
@@ -39,7 +40,7 @@
             <% }%>
          </div>
       </div>
-      <%- include("../partials/footer1") %>
+      <%- include("../partials/footer") %>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 
