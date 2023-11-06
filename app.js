@@ -9,8 +9,10 @@ const Gallery=require('./models/gallery');
 const methodOverride=require('method-override');
 const {GallerySchema}=require('./schemas/galleryschema.js');
 const {eventSchema}=require('./schemas/eventschema');
+const {loginSchema}=require('./schemas/loginschema');
 const event = require('./models/event');
 const member = require('./models/member');
+const login = require('./models/login');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
     useNewUrlParser: true,
@@ -44,8 +46,26 @@ app.get('/society',async(req,res)=>{
 })
 
 app.get('/society/login',(req,res)=>{
-    res.render('login_page')
+    var isTrue=true;
+    res.render('login_page',{isTrue})
 })
+
+app.post('/society/login',async(req,res)=>{
+    const { username, password } = req.body;
+
+  try {
+    const user = await login.findOne({ username, password });
+    if (!user) {
+        var isTrue=false;
+        res.render('login_page',{isTrue})
+    //   return res.status(401).json({ error: 'Authentication failed' });
+    }
+        res.render('home',user)
+  } catch (error) {
+    var isTrue=false;
+    res.render('login_page', {isTrue});
+  }
+});
 
 app.get('/society/gallery',async (req,res)=>{
     const gallerys=await Gallery.find({});

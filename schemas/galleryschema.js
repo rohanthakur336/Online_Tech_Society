@@ -1,7 +1,8 @@
 const Joi = require('joi');
 
-module.exports.GallerySchema = Joi.object({
-    Galley: Joi.object({
-        image: Joi.binary().required(),
-    }).required()
+module.exports.gallerySchema = Joi.object({
+    Gallery: Joi.object({
+        image: Joi.string().base64().required(),
+        description: Joi.string().required()
+    })
 });
