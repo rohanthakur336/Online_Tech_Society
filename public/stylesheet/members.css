@@ -1,7 +1,27 @@
 body {
 background-color: white;
 }
-
+.container{
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+  }
+.pstyle{
+	height: 100px;
+	overflow: hidden;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    color: #F11A7B; /* Replace with your desired text color */
+    text-decoration: none;
+    border-radius: 5px;
+}
+.css_style{
+	height: 250px;
+	overflow: hidden;
+}
 .banner {
 background-color: rgba(0, 18, 44, 0.82);
 background: -webkit-linear-gradient(to right, rgba(0, 18, 44, 0.82), rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
