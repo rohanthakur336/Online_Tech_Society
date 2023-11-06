@@ -76,12 +76,87 @@ app.get('/society/gallery/new',(req,res)=>{
     res.render('gallery/new');
 })
 
-app.post('/society/gallery',upload.single('gallery[image]'),async(req,res)=>{
-    const gal = new Gallery(req.body.gallery);
-    gal.image=req.file.buffer
-    await gal.save();
-    res.redirect('/society/gallery');
-})
+// app.post('/society/gallery',upload.single('gallery[image]'),async(req,res)=>{
+//     const gal = new Gallery(req.body.gallery);
+//     gal.image=req.file.buffer
+//     await gal.save();
+//     res.redirect('/society/gallery');
+// })
+
+const { body, validationResult } = require('express-validator');
+
+app.post('/society/gallery', upload.single('gallery[image]'), [
+    body('gallery[description]').trim().not().isEmpty().withMessage('Description is required.'),
+    body('gallery[image]').custom((value, { req }) => {
+        if (!req.file) {
+            throw new Error('Image is required.');
+        }
+
+        // Additional image validation (e.g., file type, size) can be added here
+        const allowedFileTypes = ['image/jpeg', 'image/png']; // Define allowed file types
+        const maxFileSize = 5 * 1024 * 1024; // Define the maximum file size (e.g., 5 MB)
+
+        if (!allowedFileTypes.includes(req.file.mimetype)) {
+           throw new Error('Invalid file type. Allowed file types are JPEG and PNG.');
+        }
+
+        if (req.file.size > maxFileSize) {
+           throw new Error('File size exceeds the maximum allowed size (5MB).');
+        }
+
+        return true; // The image is valid
+    }),
+], async (req, res) => {
+    const errors = validationResult(req).array(); // Always have an array
+
+    if (errors.length > 0) {
+        // Render the 'gallery/new' page with errors
+        const gallerys = await Gallery.find(); // Fetch existing gallery data
+        res.render('gallery/new', { gallerys, errors });
+    } else {
+        // Proceed with saving the gallery if validation passes
+        const gal = new Gallery(req.body.gallery);
+        gal.image = req.file.buffer;
+        await gal.save();
+        res.redirect('/society/gallery');
+    }
+});
+
+
+// const { body, validationResult } = require('express-validator');
+
+// // ...
+
+// app.post('/society/gallery', upload.single('gallery[image]'), [
+//     body('gallery[description]').trim().not().isEmpty().withMessage('Description is required.'),
+//     body('gallery[image]').custom((value, { req }) => {
+//         if (!req.file) {
+//            res.render('home'); // throw new Error('Image is required.');
+//         }
+//         // You can add additional image validation here, e.g., file type, size, etc.
+//         return true;
+//     }),
+// ], async (req, res) => {
+//     const errors = validationResult(req);
+
+//     if (!errors.isEmpty()) {
+//         // Validation failed, send errors back to the client
+//         return res.status(400).json({ errors: errors.array() });
+//     }
+
+//     // Proceed with saving the gallery if validation passes
+//     const gal = new Gallery(req.body.gallery);
+//     gal.image = req.file.buffer;
+//     await gal.save();
+//     res.redirect('/society/gallery');
+// });
+
+
+
+
+
+
+
 
 app.delete('/society/gallery/:id', async(req,res)=>{
     const {id}= req.params
@@ -140,12 +215,18 @@ app.post('/society/members',upload.single('member[img]'),async(req,res)=>{
     res.redirect('/society/members');
 })
 
+  
+  
+
+
+
+
+
 app.delete('/society/members/:id', async(req,res)=>{
     const {id}= req.params
     await member.findByIdAndDelete(id,{...req.body.member})
     res.redirect(`/society/members`)
 })
-
 app.listen(3000,()=>{
     console.log('Servering on the port 3000')
 })
