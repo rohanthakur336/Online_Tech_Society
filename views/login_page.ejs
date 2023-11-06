@@ -17,23 +17,31 @@
                 class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <form>
+              <form action="/society/login" method="POST" novalidate class="validated-form">
                 <div class="d-flex align-items-center my-3">
                   <p class="text-center fw-bold mx-4 mb-0">Welcome to Login Portal</p>
                 </div>
-      
-                <!-- Email input -->
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3" class="form-control form-control-lg"
-                    placeholder="Username or Email address" />
-                  <label class="form-label" for="form3Example3">Username or Email address</label>
+                  <% if (!isTrue) { %>
+                    <input type="text" id="username" class="form-control form-control-lg is-invalid"
+                    placeholder="Username" name="username" required/>
+                  <%} else { %>
+                    <input type="text" id="username" class="form-control form-control-lg "
+                    placeholder="Username" name="username" required/>
+                    <% } %>
+                      <label class="form-label" for="username">Username</label>
                 </div>
       
                 <!-- Password input -->
                 <div class="form-outline mb-3">
-                  <input type="password" id="form3Example4" class="form-control form-control-lg"
-                    placeholder="Enter password" />
-                  <label class="form-label" for="form3Example4">Password</label>
+                  <% if (!isTrue) { %>
+                  <input type="password" id="password" class="form-control form-control-lg is-invalid"
+                    placeholder="Enter password" name="password" required/>
+                    <% } else {%> 
+                      <input type="password" id="password" class="form-control form-control-lg "
+                    placeholder="Enter password" name="password" required/>
+                    <% } %>
+                  <label class="form-label" for="password">Password</label>
                 </div>
       
                 <div class="d-flex justify-content-between align-items-center">
@@ -46,14 +54,14 @@
                   </div>
                   <a href="#!" class="text-body">Forgot password?</a>
                 </div>
-      
+                <% if (!isTrue) { %>
+                  <div class="form-label mt-3 text-danger">**Enter a valid Username and Password**</div>
+                  <% }%>
                 <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-lg text-white"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;background-color: rgba(0, 18, 44, 0.82);">Login</button>
+                  <button class="btn btn-lg text-white" style="padding-left: 2.5rem; padding-right: 2.5rem;background-color: rgba(0, 18, 44, 0.82);">Login</button>
                   <p class="small fw-bold mt-2 pt-1 mb-0">Not a Member? <a href="/society/joinus"
                       class="link-danger">Join Us</a></p>
                 </div>
-      
               </form>
             </div>
           </div>
