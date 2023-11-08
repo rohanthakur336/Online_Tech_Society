@@ -6,6 +6,24 @@ body{
 	width:90%
 	margin:10px auto;
 } */
+.pstyle{
+	height: 100px;
+	padding-left: 5px;
+	padding-right: 5px;
+	overflow: scroll;
+	font-family: 'Edu TAS Beginner', cursive; 
+	text-align: center;
+	color: white;
+	font-size: 18px;
+}
+.p1style{
+	height: 20px;
+	overflow: hidden;
+	font-family: 'M PLUS 1p', sans-serif; 
+	text-align: center;
+	color: rgb(195, 247, 247);
+	font-size: 16px;
+}
 .banner {
     background-color: rgba(0, 18, 44, 0.82);
     background: -webkit-linear-gradient(to right, rgba(0, 18, 44, 0.82), rgba(11, 49, 102, 0.82), rgba(65, 106, 163, 0.82));
