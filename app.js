@@ -14,6 +14,9 @@ const event = require('./models/event');
 const member = require('./models/member');
 const login = require('./models/login');
 
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
     useNewUrlParser: true,
     // useCreateIndex: true,
@@ -38,7 +41,72 @@ app.set('views',path.join(__dirname,'views'));
 
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }); 
+app.post('/submit-form', upload.single('cv'), (req, res) => {
+    try {
+      // Extract form data from req.body
+      const formData = req.body;
+  
+      // Check if req.file is defined
+      if (req.file) {
+        const cv = req.file;
+  
+        // Use nodemailer to send an email with the form data
+        sendEmail(formData, cv);
+  
+        // Respond to the client
+        res.send('Form submitted successfully!');
+      } else {
+        // Handle the case where no file is provided
+        res.status(400).send('No file attached to the form');
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+    // Nodemailer setup
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'thakurrohan336@gmail.com', // Replace with your email
+          pass: 'czzw nxxa milw bvaz', // Replace with your email password
+        },
+      });
+  function sendEmail(formData,cv) {
+    const mailOptions = {
+      from: 'thakurrohan336@gmail.com',
+      to: 'ttsthapar@gmail.com', // Change to the owner's email
+      subject: 'New Form Submission',
+      text:`Form Data:\n
+      Name: ${formData.firstName} ${formData.lastName}\n
+      Roll No: ${formData.rollNo}\n
+      Father's Name: ${formData.fatherName}\n
+      Address: ${formData.address}\n
+      Gender: ${formData.gender}\n
+      DOB: ${formData.dob}\n
+      Pincode: ${formData.pincode}\n
+      Course: ${formData.course}\n
+      Email: ${formData.email}\n `,
+      attachments: [
+        {
+          filename: 'CV', // You can change the filename if needed
+          content: cv.buffer, // The buffer containing the file data
+        },
+      ],
+
+      
+    //   text: 'This is a test email.',
+
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
 
 
 app.get('/society',async(req,res)=>{
