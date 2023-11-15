@@ -7,19 +7,25 @@ const ejsMate=require('ejs-mate');
 const path=require('path');
 const Gallery=require('./models/gallery');
 const methodOverride=require('method-override');
-const {GallerySchema}=require('./schemas/galleryschema.js');
-const {eventSchema}=require('./schemas/eventschema');
-const {loginSchema}=require('./schemas/loginschema');
 const event = require('./models/event');
 const member = require('./models/member');
-const login = require('./models/login');
+var bodyParser = require('body-parser')
+const { isLoggedIn, isAdmin } = require('./middleware');
+const User = require('./models/login'),
+    passport = require("passport"),
+    session = require("express-session"),
+    flash = require("connect-flash");
+    LocalStrategy  = require("passport-local");
+
+var jsonParser = bodyParser.json()
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
     useNewUrlParser: true,
-    // useCreateIndex: true,
     useUnifiedTopology: true
 });
 
@@ -34,11 +40,42 @@ db.once("open", () => {
 app.use(express.urlencoded())
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'))
-
+app.use(flash());
 app.engine('ejs', ejsMate)
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
+const sessionConfig = {
+    // store,
+    name: 'session',
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        // secure: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+//passport configuration
+app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
+  
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+  
+  // pass currentUser to all routes
+  app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }); 
@@ -110,7 +147,22 @@ app.post('/submit-form', upload.single('cv'), (req, res) => {
 
 
 app.get('/society',async(req,res)=>{
-    res.render('home')
+    var currentUser;
+    if(req.isAuthenticated()){
+        currentUser = await User.findById(req.user._id); 
+    }
+    res.render('home', { currentUser });
+})
+
+app.get('/register',isLoggedIn, isAdmin, (req,res)=>{
+    res.render('register')
+})
+
+app.post('/society/login',passport.authenticate('local', { failureFlash: true, failureRedirect: '/society/login' }), async(req,res)=>{
+    req.flash('success', 'welcome back!');
+    const redirectUrl = req.session.returnTo || '/society';
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 })
 
 app.get('/society/login',(req,res)=>{
@@ -118,24 +170,40 @@ app.get('/society/login',(req,res)=>{
     res.render('login_page',{isTrue})
 })
 
-app.post('/society/login',async(req,res)=>{
-    const { username, password } = req.body;
+app.get('/society/logout', (req, res) => {
+    
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        req.session.destroy();
+        res.redirect('/society');
+    });
+})
 
-  try {
-    const user = await login.findOne({ username, password });
-    if (!user) {
-        var isTrue=false;
-        res.render('login_page',{isTrue})
-    //   return res.status(401).json({ error: 'Authentication failed' });
-    }
-        res.render('home',user)
-  } catch (error) {
-    var isTrue=false;
-    res.render('login_page', {isTrue});
-  }
-});
+// app.post('/society/login',async(req,res)=>{
+//     const { username, password } = req.body;
 
-app.get('/society/gallery',async (req,res)=>{
+//   try {
+//     const user = await login.findOne({ username, password });
+//     if (!user) {
+//         var isTrue=false;
+//         res.render('login_page',{isTrue})
+//     //   return res.status(401).json({ error: 'Authentication failed' });
+//     }
+//         res.render('home',user)
+//   } catch (error) {
+//     var isTrue=false;
+//     res.render('login_page', {isTrue});
+//   }
+// });
+
+app.post('/register', jsonParser, isLoggedIn, isAdmin, async(req,res) => {
+    const { email, username, password, role } = req.body;
+    const user = new User({ email, username, role });
+    const registeredUser = await User.register(user, password);
+    res.redirect('/society');
+})
+
+app.get('/society/gallery', async (req,res)=>{
     const gallerys=await Gallery.find({});
     res.render('gallery/gallery',{gallerys})
 })
@@ -220,21 +288,19 @@ app.post('/society/gallery', upload.single('gallery[image]'), [
 // });
 
 
-
-
-
-
-
-
 app.delete('/society/gallery/:id', async(req,res)=>{
     const {id}= req.params
     await Gallery.findByIdAndDelete(id,{...req.body.Gallery})
     res.redirect(`/society/gallery`)
 })
 
-app.get('/society/events',async (req,res)=>{
+app.get('/society/events', async (req,res)=>{
+    var currentUser;
+    if(req.isAuthenticated()){
+        currentUser = await User.findById(req.user._id); 
+    }
     const events=await event.find({});
-    res.render('event/event',{events});
+    res.render('event/event',{events, currentUser});
 })
 
 app.get('/society/events/new',(req,res)=>{
@@ -283,18 +349,12 @@ app.post('/society/members',upload.single('member[img]'),async(req,res)=>{
     res.redirect('/society/members');
 })
 
-  
-  
-
-
-
-
-
 app.delete('/society/members/:id', async(req,res)=>{
     const {id}= req.params
     await member.findByIdAndDelete(id,{...req.body.member})
     res.redirect(`/society/members`)
 })
+
 app.listen(3000,()=>{
     console.log('Servering on the port 3000')
 })

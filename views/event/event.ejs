@@ -24,7 +24,9 @@
             <li class="btn btn-outline-light" id="fetchDataButton3" data-filter=".lap">Current Events</li>
             <li class="btn btn-outline-light text" data-filter=".selfie">Upcoming Events</li>
          </ul>
+         <% if(currentUser.role === "admin") { %>
          <div style="text-align: right;"><a href="/society/events/new"  class="button">Add Event</a></div>
+         <% } %>
       </div>
       
       
