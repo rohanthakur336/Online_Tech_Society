@@ -21,7 +21,7 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
