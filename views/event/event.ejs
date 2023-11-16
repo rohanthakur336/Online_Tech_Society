@@ -19,33 +19,36 @@
       </div>
       <div class="portfolio-menu mt-2 mb-4 p-3 rounded banner">
          <ul>
-            <li class="btn btn-outline-light active" id="fetchDataButton1" data-filter="*">All</li>
-            <li class="btn btn-outline-light" id="fetchDataButton2" data-filter=".gts">Past Events</li>
-            <li class="btn btn-outline-light" id="fetchDataButton3" data-filter=".lap">Current Events</li>
-            <li class="btn btn-outline-light text" data-filter=".selfie">Upcoming Events</li>
+            <a href="/society/events?type=all" class="btn btn-outline-light" data-filter="*">All</a>
+           <a href="/society/events?type=past" class="btn btn-outline-light" data-filter=".gts">Past Events</a>
+           <a href="/society/events?type=ongoing" class="btn btn-outline-light" data-filter=".lap">Current Events</a>
+            <a href="/society/events?type=future" class="btn btn-outline-light text" data-filter=".selfie">Upcoming Events</a>
          </ul>
-         <% if(currentUser.role === "admin") { %>
-         <div style="text-align: right;"><a href="/society/events/new"  class="button">Add Event</a></div>
-         <% } %>
-      </div>
+         <div>
+            <% if(currentUser && (currentUser.role === "admin"||currentUser.role === "member"||currentUser.role === "head")) { %>
+               <div style="text-align: right;"><a href="/society/events/new"  class="button">Add Event</a></div>
+               <% } %>
+            </div>
+         </div>
       
       
-         <div class="portfolio-item row ">
+         <div class="portfolio-item row">
             <% for (let event of events){%>
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm ">
                <img class="img" style="border-radius: 5px 5px 0px 0px;" height="200px" width="306px"  src="data:image/jpeg;base64,<%=event.img.toString('base64')%>" alt="">
                <div style="background-color: rgba(62, 90, 129, 0.82);border-radius: 0px 0px 5px 5px;">
                <h5 class="card-title" style="font-family: 'Josefin Sans', sans-serif; text-align: center;color: rgb(239, 207, 149);font-size: 22px;padding: 10px;"><%=event.venue%></h5>
-               <p class="p1style">Event Start Date:<%=event.start_date.getDate()%>-<%=event.start_date.getMonth()%>-<%=event.start_date.getFullYear()%></p>
-               <p class="p1style">Event End Date:<%=event.end_date.getDate()%>-<%=event.end_date.getMonth()%>-<%=event.end_date.getFullYear()%></p>
+               <p class="p1style">Event Start Date:<%=event.start_date.getDate()%>-<%=event.start_date.getMonth()+1%>-<%=event.start_date.getFullYear()%></p>
+               <p class="p1style">Event End Date:<%=event.end_date.getDate()%>-<%=event.end_date.getMonth()+1%>-<%=event.end_date.getFullYear()%></p>
                <p class="pstyle" > <%=event.description%></p>
                <div style="text-align:right;">
+                  <% if(currentUser && (currentUser.role === "admin"||currentUser.role === "head")) { %>
                   <form class="" action="/society/events/<%=event._id%>?_method=DELETE" method="POST">
                      <button class="btn" style="border-color:#F11A7B ; font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%;margin-bottom: 5px;margin-right: 5px; padding: 0px 0px;">Delete</button>
                  </form>
+                 <% } %>
                </div>
                </div>
-               
             </div>
             <% }%>
          </div>
@@ -53,9 +56,6 @@
       <%- include("../partials/footer") %>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-
-
-<script src="../javascripts/eventscript.js"></script>
 </body>
 
 </html>

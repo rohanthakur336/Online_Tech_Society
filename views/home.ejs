@@ -77,9 +77,9 @@
 </div>
 <div>
     <div class="d-flex d-flex justify-content-around event div4">
-        <div class="s"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU" alt="Error"></div>
-        <div class="l"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU" alt="Error"></div>
-        <div class="s"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRCIq1WFIqckI69eGZ67ugLdfxchy96eLR7w&usqp=CAU" alt="Error"></div>
+        <div class="s"><img src="data:image/jpeg;base64,<%=events[0].img.toString('base64')%>" alt="Error"></div>
+        <div class="l"><img src="data:image/jpeg;base64,<%=events[1].img.toString('base64')%>" alt="Error"></div>
+        <div class="s"><img src="data:image/jpeg;base64,<%=events[2].img.toString('base64')%>" alt="Error"></div>
     </div>
   </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center border-top px-3 text-white" style="background-color: rgba(0, 18, 44, 0.82); height: 76px;">
@@ -135,6 +135,8 @@
 }
 
 .l img{
+    height: 200px;
+    width: 200px;
     border-radius: 50%;
 }
 

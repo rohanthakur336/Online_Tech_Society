@@ -21,7 +21,9 @@
               <div class="text-white p-3 shadow-sm rounded banner">
                 <h1 class="display-4"><center>Members Profile</center></h1>
                 <p class="lead"><center>This profile page is designed to showcase the diversity and achievements of the society's members, allowing you to learn more about the people who make up the community. </center></p>
+                <% if(currentUser && currentUser.role === "admin") { %>
                 <div style="text-align: right;"><a href="/society/members/new" class="button">Add Member</a></div>
+                <% } %>
               </div>
             </div>
           </div>
@@ -37,9 +39,13 @@
                       <h5 class="card-title" style="font-family: 'Josefin Sans', sans-serif; text-align: center;color: rgb(239, 207, 149);font-size: 30px;"><%= members[i].name %></h5>
                       <p class="card-text" style="font-family: 'M PLUS 1p', sans-serif; text-align: center;color: rgb(195, 247, 247);font-size: 16px;"><%= members[i].designation %></p>
                       <p class="card-text pstyle" style="font-family: 'Edu TAS Beginner', cursive; text-align: center;color: white;font-size: 18px;"><%= members[i].description %></p>
-                      <div style="text-align: right;"><form class="" action="/society/members/<%=members[i]._id%>?_method=DELETE" method="POST">
+                      <div style="text-align: right;">
+                        <% if(currentUser && currentUser.role === "admin") { %>
+                        <form class="" action="/society/members/<%=members[i]._id%>?_method=DELETE" method="POST">
                         <button class="btn" style="font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%; padding: 0px 0px;">Delete</button>
-                      </form></div>
+                      </form>
+                      <% } %>
+                    </div>
                       <!-- Add other member details as needed -->
                     </div>
                   </div>

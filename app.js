@@ -10,7 +10,7 @@ const methodOverride=require('method-override');
 const event = require('./models/event');
 const member = require('./models/member');
 var bodyParser = require('body-parser')
-const { isLoggedIn, isAdmin } = require('./middleware');
+const { isLoggedIn, isAdmin,isHead } = require('./middleware');
 const User = require('./models/login'),
     passport = require("passport"),
     session = require("express-session"),
@@ -147,11 +147,12 @@ app.post('/submit-form', upload.single('cv'), (req, res) => {
 
 
 app.get('/society',async(req,res)=>{
+    const events=await event.find({});
     var currentUser;
     if(req.isAuthenticated()){
         currentUser = await User.findById(req.user._id); 
     }
-    res.render('home', { currentUser });
+    res.render('home', { currentUser,events});
 })
 
 app.get('/register',isLoggedIn, isAdmin, (req,res)=>{
@@ -204,11 +205,15 @@ app.post('/register', jsonParser, isLoggedIn, isAdmin, async(req,res) => {
 })
 
 app.get('/society/gallery', async (req,res)=>{
+    var currentUser;
+    if(req.isAuthenticated()){
+        currentUser = await User.findById(req.user._id); 
+    }
     const gallerys=await Gallery.find({});
-    res.render('gallery/gallery',{gallerys})
+    res.render('gallery/gallery',{gallerys,currentUser})
 })
 
-app.get('/society/gallery/new',(req,res)=>{
+app.get('/society/gallery/new',isLoggedIn,(req,res)=>{
     res.render('gallery/new');
 })
 
@@ -221,7 +226,7 @@ app.get('/society/gallery/new',(req,res)=>{
 
 const { body, validationResult } = require('express-validator');
 
-app.post('/society/gallery', upload.single('gallery[image]'), [
+app.post('/society/gallery',isLoggedIn, upload.single('gallery[image]'), [
     body('gallery[description]').trim().not().isEmpty().withMessage('Description is required.'),
     body('gallery[image]').custom((value, { req }) => {
         if (!req.file) {
@@ -288,33 +293,61 @@ app.post('/society/gallery', upload.single('gallery[image]'), [
 // });
 
 
-app.delete('/society/gallery/:id', async(req,res)=>{
+app.delete('/society/gallery/:id',isLoggedIn,isHead, async(req,res)=>{
     const {id}= req.params
     await Gallery.findByIdAndDelete(id,{...req.body.Gallery})
     res.redirect(`/society/gallery`)
 })
 
-app.get('/society/events', async (req,res)=>{
-    var currentUser;
-    if(req.isAuthenticated()){
-        currentUser = await User.findById(req.user._id); 
-    }
-    const events=await event.find({});
-    res.render('event/event',{events, currentUser});
-})
+// app.get('/society/events', async (req,res)=>{
+//     var currentUser;
+//     if(req.isAuthenticated()){
+//         currentUser = await User.findById(req.user._id); 
+//     }
+//     const events=await event.find({});
+//     res.render('event/event',{events, currentUser});
+// })
 
-app.get('/society/events/new',(req,res)=>{
+app.get('/society/events', async (req, res) => {
+    try {
+        var currentUser;
+        if(req.isAuthenticated()){
+            currentUser = await User.findById(req.user._id); 
+        }
+        let events;
+        var currData = new Date();
+        switch (req.query.type) {
+            case 'ongoing':
+                events = await event.find({ start_date: { $lte: new Date() }, end_date: { $gte: new Date() } });
+                break;
+            case 'past':
+                events = await event.find({ end_date: { $lt: new Date() } });
+                break;
+            case 'future':
+                events = await event.find({ start_date: { $gt: new Date() } });
+                break;
+            default:
+                events = await event.find();
+        }
+        res.render('event/event',{events, currentUser});
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.get('/society/events/new',isLoggedIn,(req,res)=>{
     res.render('event/new');
 })
 
-app.post('/society/events',upload.single('event[img]'),async(req,res)=>{
+app.post('/society/events',isLoggedIn,upload.single('event[img]'),async(req,res)=>{
     const even = new event(req.body.event);
     even.img=req.file.buffer
     await even.save();
     res.redirect('/society/events');
 })
 
-app.delete('/society/events/:id', async(req,res)=>{
+app.delete('/society/events/:id',isLoggedIn,isHead, async(req,res)=>{
     const {id}= req.params
     await event.findByIdAndDelete(id,{...req.body.event})
     res.redirect(`/society/events`)
@@ -334,22 +367,26 @@ app.get('/society/joinus',(req,res)=>{
 })
 
 app.get('/society/members',async(req,res)=>{
+    var currentUser;
+    if(req.isAuthenticated()){
+        currentUser = await User.findById(req.user._id); 
+    }
     const members=await member.find({});
-    res.render('member/member',{members});
+    res.render('member/member',{members,currentUser});
 })
 
-app.get('/society/members/new',(req,res)=>{
+app.get('/society/members/new',isLoggedIn,isAdmin,(req,res)=>{
     res.render('member/new');
 })
 
-app.post('/society/members',upload.single('member[img]'),async(req,res)=>{
+app.post('/society/members',isLoggedIn,isAdmin,upload.single('member[img]'),async(req,res)=>{
     const mem = new member(req.body.member);
     mem.img=req.file.buffer
     await mem.save();
     res.redirect('/society/members');
 })
 
-app.delete('/society/members/:id', async(req,res)=>{
+app.delete('/society/members/:id',isLoggedIn,isAdmin, async(req,res)=>{
     const {id}= req.params
     await member.findByIdAndDelete(id,{...req.body.member})
     res.redirect(`/society/members`)

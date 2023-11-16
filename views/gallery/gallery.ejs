@@ -24,7 +24,9 @@
               <div class="text-white p-3 shadow-sm rounded banner">
                 <h1 class="display-4"><center>Gallery</center></h1>
                 <p class="lead"><center>It is a curated space designed to showcase and celebrate the creative and visual works of our society.</center></p>
+                <% if(currentUser && (currentUser.role === "admin"||currentUser.role === "member"||currentUser.role === "head")) { %>
                 <div  style="text-align: right;"><a href="/society/gallery/new" class="button">Add to Gallery</a></div>
+                <% } %>
               </div>
             </div>
           </div>
@@ -35,11 +37,13 @@
                <!-- <a href="https://image.freepik.com/free-photo/stylish-young-woman-with-bags-taking-selfie_23-2147962203.jpg" class="fancylight popup-btn" data-fancybox-group="light"> -->
                <div class="max-img-size rounded-top "><img class="img" src="data:image/jpeg;base64,<%=gallery.image.toString('base64')%>" alt="Image" height="200 px" width="300px"></div>
                <div class="grey-bg rounded-bottom " id="myContent" style="text-align: center;font-family: 'Edu TAS Beginner', cursive;"><p style="padding-bottom: 0;margin-bottom: 0;"><%=gallery.description%></p>
-                  <div style="text-align:right;"><form class="" action="/society/gallery/<%=gallery._id%>?_method=DELETE" method="POST">
-                     <button class="btn" style="font-family:sans-serif;background-color: white; color:#F11A7B;height: 100%;width: 30px;height: 20px ; padding: 0px 0px;">
-                        <img src="/images/delete1.png" alt="Delete Image" style="padding-bottom: 5px; width: 70%; height: 90%;">
-                     </button>
-                 </form></div>
+                  <div style="text-align:center;">
+                     <% if(currentUser && (currentUser.role === "admin"||currentUser.role === "head")) { %>
+                     <form class="" action="/society/gallery/<%=gallery._id%>?_method=DELETE" method="POST">
+                        <button class="btn" style="font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%; padding: 0px 0px;border-bottom-left-radius: 0%;border-bottom-right-radius: 0%;">Delete</button>
+                     </form>
+                     <% } %>
+               </div>
                </div>
             </div>
             <% }%>
