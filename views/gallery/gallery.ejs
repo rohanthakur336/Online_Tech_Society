@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
    <%- include("../partials/navbar") %>
@@ -34,8 +35,10 @@
                <!-- <a href="https://image.freepik.com/free-photo/stylish-young-woman-with-bags-taking-selfie_23-2147962203.jpg" class="fancylight popup-btn" data-fancybox-group="light"> -->
                <div class="max-img-size rounded-top "><img class="img" src="data:image/jpeg;base64,<%=gallery.image.toString('base64')%>" alt="Image" height="200 px" width="300px"></div>
                <div class="grey-bg rounded-bottom " id="myContent" style="text-align: center;font-family: 'Edu TAS Beginner', cursive;"><p style="padding-bottom: 0;margin-bottom: 0;"><%=gallery.description%></p>
-                  <div style="text-align:center;"><form class="" action="/society/gallery/<%=gallery._id%>?_method=DELETE" method="POST">
-                     <button class="btn" style="font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%; padding: 0px 0px;border-bottom-left-radius: 0%;border-bottom-right-radius: 0%;">Delete</button>
+                  <div style="text-align:right;"><form class="" action="/society/gallery/<%=gallery._id%>?_method=DELETE" method="POST">
+                     <button class="btn" style="font-family:sans-serif;background-color: white; color:#F11A7B;height: 100%;width: 30px;height: 20px ; padding: 0px 0px;">
+                        <img src="/images/delete1.png" alt="Delete Image" style="padding-bottom: 5px; width: 70%; height: 90%;">
+                     </button>
                  </form></div>
                </div>
             </div>

@@ -21,7 +21,7 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 
 mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
@@ -106,13 +106,13 @@ app.post('/submit-form', upload.single('cv'), (req, res) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'thakurrohan336@gmail.com', // Replace with your email
-          pass: 'czzw nxxa milw bvaz', // Replace with your email password
+          user: 'ttsthapar@gmail.com', // Replace with your email
+          pass: 'dsfi hrqm pbdv vaag', // Replace with your email password
         },
       });
   function sendEmail(formData,cv) {
     const mailOptions = {
-      from: 'thakurrohan336@gmail.com',
+      from: 'ttsthapar@gmail.com',
       to: 'ttsthapar@gmail.com', // Change to the owner's email
       subject: 'New Form Submission',
       text:`Form Data:\n
