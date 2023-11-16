@@ -11,7 +11,7 @@ const loginSchema = new Schema({
     role: {
         type: String,
         default: 'member',
-        enum: ['admin', 'member'] 
+        enum: ['admin','head','member'] 
     }
 });
 
