@@ -9,29 +9,41 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Lobster&family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&family=Josefin+Sans&family=M+PLUS+1p:wght@300&display=swap" rel="stylesheet">
 </head>
 <body bg-dark>
 <%- include("partials/navbar") %>
 <div class="div1">
-<div class="container col-xxl-8 px-4 py-5">
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5 tc">
-      <div class="col-lg-2"></div>
-      <div class="col-lg-8">
-        <h1 class="custom-larger-text lh-1 mb-3 "><center>Thapar Technical Society</center></h1>
+  <div class="container col-xxl-8 px-4 py-3">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-2 tc">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-8 text-center">
+              <h1 class="custom-larger-text lh-1 mb-3">Thapar Technical Society</h1>
+              <p class="custom-description-text">
+                "A dynamic hub where passion meets expertise. Whether you're a seasoned developer, a budding tech enthusiast, or someone curious about the latest tech trends, there's a place for you in our ever-growing online society."
+              </p>
+          </div>
+          <div class="col-lg-2"></div>
       </div>
-      <div class="col-lg-2"></div>
-    </div>
   </div>
-
 </div>
+
 <div class="container">
   <div class="row mt-5">
     <div class="col-lg-6"><img src="/images/pc_girl.png" alt="pc girl" width="103%"></div>
-    <div class="col-lg-6"><p><b>Look for all your answers at our community page</b></p></div>
+    <div class="col-lg-6 con"><p><b>
+      <ul>
+        <li class="mb-4" style="font-size: 24px;">Engaging Technical Workshops and Webinars</li>
+        <li class="mb-4" style="font-size: 24px;">Interactive Coding Challenges and Hackathons</li>
+      </ul>
+      </b></p></div>
   </div>
   <div class="row mt-5">
-    <div class="col-lg-6"><p><b>The fastest growing
-      society at Thapar</b></p></div>
+    <div class="col-lg-6 con"><p><b>
+      <ul>
+      <li class="mb-4" style="font-size: 24px;">Networking Opportunities with like minded people</li>
+      <li class="mb-2" style="font-size: 24px;"> Exciting Tech Events and Projects</li>
+    </ul></b></p></div>
     <div class="col-lg-6"><img src="/images/rocket_boy.png" alt="rocket boy" width="103%"></div>
   </div>
 </div>
@@ -84,7 +96,6 @@
   </div>
     <footer class="d-flex flex-wrap justify-content-between align-items-center border-top px-3 text-white" style="background-color: rgba(0, 18, 44, 0.82); height: 76px;">
       <p class="col-md-4 mb-0"><a href="/" class="col-md-4 d-inline me-1 mb-3 mb-md-0 md-auto link-body-emphasis text-decoration-none">
-        B
       </a>© 2023 Company, Inc</p>
       <ul class="nav col-md-4 justify-content-end ">
         <li ><a href="#" class="nav-link px-2 ab">Home</a></li>
@@ -104,6 +115,19 @@
     background-size: cover;
     background-position: center;
     padding: 20px;
+}
+.custom-description-text {
+  font-family: 'Edu TAS Beginner', cursive;
+    font-size: 20px;
+    color: rgb(249, 184, 63);
+    margin-top: 20px;
+}
+.con{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2c3e50; /* Change the color as needed */
+    font-style: italic; /* Change the font style as needed */
 }
 .div1
 {
