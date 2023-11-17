@@ -10,12 +10,26 @@ body{
 	height: 100px;
 	padding-left: 5px;
 	padding-right: 5px;
-	overflow: scroll;
+	overflow-y: auto;
 	font-family: 'Edu TAS Beginner', cursive; 
 	text-align: center;
 	color: white;
 	font-size: 18px;
 }
+
+.pstyle::-webkit-scrollbar {
+	width: 8px;
+  }
+
+  .pstyle::-webkit-scrollbar-thumb {
+	background-color: #90A4AE;
+	border-radius: 10px;
+  }
+
+  .pstyle::-webkit-scrollbar-track {
+	background-color: rgba(62, 90, 129, 0);
+  }
+  
 .p1style{
 	height: 20px;
 	overflow: hidden;
