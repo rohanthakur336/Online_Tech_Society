@@ -19,7 +19,7 @@ const User = require('./models/login'),
 require('dotenv').config();
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
-
+const PORT=process.env.PORT || 3000
 
 // const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
@@ -397,6 +397,6 @@ app.delete('/society/members/:id',isLoggedIn,isAdmin, async(req,res)=>{
     res.redirect(`/society/members`)
 })
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     console.log('Servering on the port 3000')
 })
