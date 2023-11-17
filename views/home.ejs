@@ -75,7 +75,7 @@
             </button>
         </div>
 </div>
-<div>
+<div class="image-container">
     <div class="d-flex d-flex justify-content-around event div4">
         <div class="s"><img src="data:image/jpeg;base64,<%=events[0].img.toString('base64')%>" alt="Error"></div>
         <div class="l"><img src="data:image/jpeg;base64,<%=events[1].img.toString('base64')%>" alt="Error"></div>
@@ -99,7 +99,12 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
 }
-
+.image-container {
+    background-image: url('/images/eventback.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
 .div1
 {
   background-image: url('/images/main.jpeg');
