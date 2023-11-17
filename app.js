@@ -16,7 +16,7 @@ const User = require('./models/login'),
     session = require("express-session"),
     flash = require("connect-flash");
     LocalStrategy  = require("passport-local");
-
+require('dotenv').config();
 var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -24,7 +24,12 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 // const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 
-mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
+// mongoose.connect('mongodb+srv://shivam:shivam28@project1.kja17z2.mongodb.net/society', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// });
+
+mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
