@@ -8,8 +8,22 @@ background-color: white;
   }
 .pstyle{
 	height: 100px;
-	overflow: scroll;
+	/* overflow: scroll; */
+	overflow-y: auto;
 }
+
+.pstyle::-webkit-scrollbar {
+	width: 8px;
+  }
+
+  .pstyle::-webkit-scrollbar-thumb {
+	background-color: #90A4AE;
+	border-radius: 10px;
+  }
+
+  .pstyle::-webkit-scrollbar-track {
+	background-color: rgba(62, 90, 129, 0);
+  }
 .button {
     display: inline-block;
     padding: 10px 20px;
