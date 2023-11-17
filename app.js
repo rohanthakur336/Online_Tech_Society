@@ -10,7 +10,7 @@ const methodOverride=require('method-override');
 const event = require('./models/event');
 const member = require('./models/member');
 var bodyParser = require('body-parser')
-const { isLoggedIn, isAdmin,isHead } = require('./middleware');
+const { isLoggedIn, isAdmin,isHeadorAdmin } = require('./middleware');
 const User = require('./models/login'),
     passport = require("passport"),
     session = require("express-session"),
@@ -293,7 +293,7 @@ app.post('/society/gallery',isLoggedIn, upload.single('gallery[image]'), [
 // });
 
 
-app.delete('/society/gallery/:id',isLoggedIn,isHead, async(req,res)=>{
+app.delete('/society/gallery/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     const {id}= req.params
     await Gallery.findByIdAndDelete(id,{...req.body.Gallery})
     res.redirect(`/society/gallery`)
@@ -347,7 +347,7 @@ app.post('/society/events',isLoggedIn,upload.single('event[img]'),async(req,res)
     res.redirect('/society/events');
 })
 
-app.delete('/society/events/:id',isLoggedIn,isHead, async(req,res)=>{
+app.delete('/society/events/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     const {id}= req.params
     await event.findByIdAndDelete(id,{...req.body.event})
     res.redirect(`/society/events`)
