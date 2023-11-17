@@ -37,11 +37,16 @@
                   placeholder="email" name="email" required/>
                     <label class="form-label" for="email">Email</label>
               </div>
-                <div class="form-outline mb-3">
-                    <input type="text" id="role" class="form-control form-control-lg "
-                  placeholder="Enter role" name="role"/>
+              <div class="form-outline mb-3">
+                <select id="role" class="form-select form-select-lg" name="role">
+                    <option value="" selected disabled>Select a role</option>
+                    <option value="member">member</option>
+                    <option value="head">head</option>
+                    <option value="admin">admin</option>
+                </select>
                 <label class="form-label" for="role">Role</label>
-              </div>
+            </div>
+            
       
                 <div class="d-flex justify-content-between align-items-center">
 
