@@ -148,7 +148,7 @@ app.post('/submit-form', upload.single('cv'), (req, res) => {
 
 
 app.get('/society',async(req,res)=>{
-    const events=await event.find({});
+    const events=await event.find({}).limit(3);
     var currentUser;
     if(req.isAuthenticated()){
         currentUser = await User.findById(req.user._id); 
@@ -226,7 +226,6 @@ app.get('/society/gallery/new',isLoggedIn,(req,res)=>{
 // })
 
 const { body, validationResult } = require('express-validator');
-const anouncement = require('./models/anouncement');
 
 app.post('/society/gallery',isLoggedIn, upload.single('gallery[image]'), [
     body('gallery[description]').trim().not().isEmpty().withMessage('Description is required.'),
@@ -264,36 +263,6 @@ app.post('/society/gallery',isLoggedIn, upload.single('gallery[image]'), [
         res.redirect('/society/gallery');
     }
 });
-
-
-// const { body, validationResult } = require('express-validator');
-
-// // ...
-
-// app.post('/society/gallery', upload.single('gallery[image]'), [
-//     body('gallery[description]').trim().not().isEmpty().withMessage('Description is required.'),
-//     body('gallery[image]').custom((value, { req }) => {
-//         if (!req.file) {
-//            res.render('home'); // throw new Error('Image is required.');
-//         }
-//         // You can add additional image validation here, e.g., file type, size, etc.
-//         return true;
-//     }),
-// ], async (req, res) => {
-//     const errors = validationResult(req);
-
-//     if (!errors.isEmpty()) {
-//         // Validation failed, send errors back to the client
-//         return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     // Proceed with saving the gallery if validation passes
-//     const gal = new Gallery(req.body.gallery);
-//     gal.image = req.file.buffer;
-//     await gal.save();
-//     res.redirect('/society/gallery');
-// });
-
 
 app.delete('/society/gallery/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     const {id}= req.params
@@ -353,11 +322,6 @@ app.delete('/society/events/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     await event.findByIdAndDelete(id,{...req.body.event})
     res.redirect(`/society/events`)
 })
-
-// app.get('/society/events/:id/edit',async(req,res)=>{
-//     const even=await event.findById(req.params.id)
-//     res.render('event/update',{even});
-// })
 
 app.get('/society/community',(req,res)=>{
     res.send('community')
