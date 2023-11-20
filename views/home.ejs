@@ -136,8 +136,16 @@
       </ul>
     </footer>
 <style>
-  .custom-larger-text {
-        font-size: 7rem; /* Adjust the value to make the text larger */
+    @media (max-width: 768px) {
+        .custom-larger-text {
+            font-size: 4rem; /* Adjust the font size for smaller screens */
+        }
+    }
+
+    @media (min-width: 769px) {
+        .custom-larger-text {
+            font-size: 7rem; /* Adjust the font size for larger screens */
+        }
     }
 .tc{
   color: white;

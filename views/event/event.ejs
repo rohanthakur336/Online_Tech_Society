@@ -35,12 +35,15 @@
          <div class="portfolio-item row">
             <% for (let event of events){%>
             <div class="item selfie col-lg-3 col-md-4 col-6 col-sm ">
-               <img class="img" style="border-radius: 5px 5px 0px 0px;" height="200px" width="306px"  src="data:image/jpeg;base64,<%=event.img.toString('base64')%>" alt="">
+               <img class="img" style="border-radius: 5px 5px 0px 0px; width: 100%; max-width: 306px;" height="200px"  src="data:image/jpeg;base64,<%=event.img.toString('base64')%>" alt="">
                <div style="background-color: rgba(62, 90, 129, 0.82);border-radius: 0px 0px 5px 5px;">
-               <h5 class="card-title" style="font-family: 'Josefin Sans', sans-serif; text-align: center;color: rgb(239, 207, 149);font-size: 22px;padding: 10px;"><%=event.venue%></h5>
-               <p class="p1style">Event Start Date:<%=event.start_date.getDate()%>-<%=event.start_date.getMonth()+1%>-<%=event.start_date.getFullYear()%></p>
-               <p class="p1style">Event End Date:<%=event.end_date.getDate()%>-<%=event.end_date.getMonth()+1%>-<%=event.end_date.getFullYear()%></p>
-               <p class="pstyle" > <%=event.description%></p>
+                  <div style="width: 100%; max-width: 306px;"> 
+                     <h5 class="card-title" style="font-family: 'Josefin Sans', sans-serif; text-align: center;color: rgb(239, 207, 149);font-size: 22px;padding: 10px;"><%=event.venue%></h5>
+                     <p class="p1style">Event Start Date:<%=event.start_date.getDate()%>-<%=event.start_date.getMonth()+1%>-<%=event.start_date.getFullYear()%></p>
+                     <p class="p1style">Event End Date:<%=event.end_date.getDate()%>-<%=event.end_date.getMonth()+1%>-<%=event.end_date.getFullYear()%></p>
+                     <p class="pstyle" > <%=event.description%></p>
+                  </div>
+
                <div style="text-align:right;">
                   <% if(currentUser && (currentUser.role === "admin"||currentUser.role === "head")) { %>
                   <form class="" action="/society/events/<%=event._id%>?_method=DELETE" method="POST">
