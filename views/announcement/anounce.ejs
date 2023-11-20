@@ -19,7 +19,7 @@
             </div>
          </div>
          
-         <div class="row py-2">
+         <div class="row py-2 mb-5">
             <div class="col-lg-12 mx-auto">
               <div class="text-white p-3 shadow-sm rounded banner">
                 <h1 class="display-4"><center>Announcements</center></h1>
@@ -34,13 +34,15 @@
          <div class="portfolio-item row ">
             <% for (let announce of anouncements){%>
                <% if(currentUser && (currentUser.role === "admin")||announce.to=="All"||announce.to==currentUser.username) { %>
-               <div>
+               <div class="message-box">
                   <% var hours = announce.send_date.getHours(); %>
                   <% var minutes = announce.send_date.getMinutes(); %>
                   <% var ampm = hours >= 12 ? 'PM' : 'AM'; %>
                   <% hours = hours % 12; %>
                   <% hours = hours ? hours : 12; %>
-                  <%= announce.to %> , <%= announce.from %> , <%= announce.message %> ,<%=announce.send_date.getDate()%>-<%=announce.send_date.getMonth()+1%>-<%=announce.send_date.getFullYear()%>,<p>Time: <%= hours %>:<%if(minutes<10){%>0<%}%><%= minutes %><%= ampm %></p> %>
+                  <div class="message-header">From:  <%= announce.from %>  | To: <%= announce.to %></div>
+                  <div class="message-content">Message: <%= announce.message %> </div>
+                  <div class="message-content cc"> Date: <%=announce.send_date.getDate()%>-<%=announce.send_date.getMonth()+1%>-<%=announce.send_date.getFullYear()%> | Time: <%= hours %>:<%if(minutes<10){%>0<%}%><%= minutes %><%= ampm %></div>
                   <% if(currentUser && (currentUser.role === "admin")) { %>
                      <form class="" action="/society/announcements/<%=announce._id%>?_method=DELETE" method="POST">
                         <button class="btn" style="border-color:#F11A7B ; font-family:sans-serif;color:#F11A7B;background-color: white;width: 20%; height: 100%;margin-bottom: 5px;margin-right: 5px; padding: 0px 0px;">Delete</button>
@@ -55,12 +57,47 @@
          </div>
          
       </div>
-      <div class="footer">
-         <%- include("../partials/footer") %>
-       </div>
+      
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+      <style>
+         body {
+        
+           height: 100vh;
+         }
+     
+         .message-box {
+           background-color: #fff;
+           margin: auto;
+           margin-bottom: 15px;
+           border-radius: 8px;
+           box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+           max-width: 98%;
+           width: 100%;
+           padding: 20px;
+           box-sizing: border-box;
+         }
+     
+         .message-header {
+           font-size: 18px;
+           font-weight: bold;
+           margin-bottom: 10px;
+         }
+     
+         .message-content {
+           font-size: 16px;
+           margin-bottom: 7px;
+         }
+         .cc{
+           font-size: 12px;
+         }
+       </style>    
 </body>
-
+<footer>
+   <div class="footer">
+      <%- include("../partials/footer") %>
+    </div>
+</footer>
 
 </html>
+
