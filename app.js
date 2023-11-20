@@ -419,7 +419,7 @@ app.post('/society/announcements',isLoggedIn,isAdmin,async(req,res)=>{
     const selectedUser = req.body.anounces.to;
     const announcementMessage = req.body.anounces.message;
     const user = await User.findOne({ username: selectedUser });
-    if(selectedUser!="All"&&selectedUser!="AllAdmins"&&selectedUser!="AllHeads"&&!user)
+    if(selectedUser!="All"&&selectedUser!="All Admins"&&selectedUser!="All Heads"&&!user)
     {
         return res.status(401).json({msg:'No such user'})
     }
