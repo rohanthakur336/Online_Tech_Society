@@ -33,7 +33,7 @@
          
          <div class="portfolio-item row ">
             <% for (let announce of anouncements){%>
-               <% if(currentUser && (currentUser.role === "admin")||announce.to=="All"||announce.to==currentUser.username||announce.to=="All heads"&&currentUser.role=="head") { %>
+               <% if(currentUser && (currentUser.role === "admin")||announce.to=="All"||announce.to==currentUser.username||announce.to=="All Heads"&&currentUser.role=="head") { %>
                <div class="message-box">
                   <% var hours = announce.send_date.getHours(); %>
                   <% var minutes = announce.send_date.getMinutes(); %>
