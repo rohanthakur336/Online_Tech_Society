@@ -17,6 +17,8 @@
                         <label class="form-label" for="to">To</label>
                         <select name="anounces[to]" id="to">
                             <option value="All">All</option>
+                            <option value="All Admins">All Admins</option>
+                            <option value="All Heads">All Heads</option>
                             <% for(let user of users) { %>
                             <% if(user.username!=currentUser.username) {%>
                               <option value="<%= user.username %>"><%= user.username %></option>
