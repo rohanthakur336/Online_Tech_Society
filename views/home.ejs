@@ -129,7 +129,10 @@
       </a>© 2023 Company, Inc</p>
       <ul class="nav col-md-4 justify-content-end ">
         <li ><a href="#" class="nav-link px-2 ab">Home</a></li>
+        <li><a class="nav-link px-2 ab" href="/society/members">Members</a></li>
+        <%if(!currentUser){%>
         <li ><a href="/society/joinus" class="nav-link px-2 ab">Join Us</a></li>
+        <%}%>
       </ul>
     </footer>
 <style>
