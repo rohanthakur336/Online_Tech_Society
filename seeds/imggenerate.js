@@ -15,14 +15,20 @@ db.once("open", () => {
 });
 
 const seedDB = async () => {
-    await Gallery.deleteMany({});
+    // Gallery.Insert({
+    //     image: `https://source.unsplash.com/random`,
+    //     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam magni voluptate odio ab, ducimus repellat deserunt ipsa. Atque eligendi cum voluptas iste quo provident similique porro aliquid dicta, impedit ipsam Aperiam delectus tempora laboriosam ex maiores deleniti id consectetur porro eius unde iste reprehenderit quis, enim suscipit distinctio quod rem, veniam, illo adipisci perferendis. Inventore laudantium vero ad aperiam consequatur."
+    // });
+    // await Gallery.deleteMany({});
     // for (let i = 0; i < 50; i++) {
-    //     const gall = new Gallery({
-    //         image: `https://source.unsplash.com/random`,
-    //         // date:"2023-12-11",
-    //         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam magni voluptate odio ab, ducimus repellat deserunt ipsa. Atque eligendi cum voluptas iste quo provident similique porro aliquid dicta, impedit ipsam Aperiam delectus tempora laboriosam ex maiores deleniti id consectetur porro eius unde iste reprehenderit quis, enim suscipit distinctio quod rem, veniam, illo adipisci perferendis. Inventore laudantium vero ad aperiam consequatur."
-    //     })
-    //     await gall.save();
+        const gall = new Gallery({
+            image: `https://source.unsplash.com/random`,
+            // date:"2023-12-11",
+            description: "Lorem ipsum hyh dolor sit amet consectetur adipisicing elit. Aperiam magni voluptate odio ab, ducimus repellat deserunt ipsa. Atque eligendi cum voluptas iste quo provident similique porro aliquid dicta, impedit ipsam Aperiam delectus tempora laboriosam ex maiores deleniti id consectetur porro eius unde iste reprehenderit quis, enim suscipit distinctio quod rem, veniam, illo adipisci perferendis. Inventore laudantium vero ad aperiam consequatur."
+        })
+        await gall.save();
+        console.log(Gallery.findAll());
+
     // }
 }
 
