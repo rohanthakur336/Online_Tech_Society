@@ -181,23 +181,6 @@ app.get('/society/logout', (req, res) => {
     });
 })
 
-// app.post('/society/login',async(req,res)=>{
-//     const { username, password } = req.body;
-
-//   try {
-//     const user = await login.findOne({ username, password });
-//     if (!user) {
-//         var isTrue=false;
-//         res.render('login_page',{isTrue})
-//     //   return res.status(401).json({ error: 'Authentication failed' });
-//     }
-//         res.render('home',user)
-//   } catch (error) {
-//     var isTrue=false;
-//     res.render('login_page', {isTrue});
-//   }
-// });
-
 app.post('/register', jsonParser, isLoggedIn, isAdmin, async(req,res) => {
     const { email, username, password, role } = req.body;
     const user = new User({ email, username, role });
@@ -270,15 +253,6 @@ app.delete('/society/gallery/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     res.redirect(`/society/gallery`)
 })
 
-// app.get('/society/events', async (req,res)=>{
-//     var currentUser;
-//     if(req.isAuthenticated()){
-//         currentUser = await User.findById(req.user._id); 
-//     }
-//     const events=await event.find({});
-//     res.render('event/event',{events, currentUser});
-// })
-
 app.get('/society/events', async (req, res) => {
     try {
         var currentUser;
@@ -316,6 +290,7 @@ app.post('/society/events',isLoggedIn,upload.single('event[img]'),async(req,res)
     await even.save();
     res.redirect('/society/events');
 })
+
 
 app.delete('/society/events/:id',isLoggedIn,isHeadorAdmin, async(req,res)=>{
     const {id}= req.params
